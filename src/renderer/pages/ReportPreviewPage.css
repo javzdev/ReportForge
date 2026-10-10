@@ -1,0 +1,77 @@
+.document {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 0;
+  overflow: hidden;
+}
+
+.document__cover {
+  padding: 48px 40px;
+  border-bottom: 2px solid var(--color-border);
+  background: var(--color-surface-alt);
+}
+
+.document__classification {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
+.document__title {
+  font-size: 28px;
+  margin: 0 0 16px;
+}
+
+.document__meta {
+  margin: 2px 0;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.document__section {
+  padding: 28px 40px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.document__section:last-child {
+  border-bottom: none;
+}
+
+.document__section-title {
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+
+.document__section-description {
+  color: var(--color-text-muted);
+  margin: 0 0 16px;
+  font-size: 13px;
+}
+
+.document__field {
+  margin-bottom: 18px;
+}
+
+.document__field-label {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.document__field-value {
+  white-space: pre-wrap;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.document__field-empty {
+  color: var(--color-text-muted);
+  font-style: italic;
+}

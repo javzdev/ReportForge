@@ -1,0 +1,13 @@
+node_modules/
+dist/
+dist-electron-builder/
+*.log
+.DS_Store
+Thumbs.db
+*.local
+
+# Datos de usuario que no deben versionarse (bases de datos de prueba, backups generados)
+*.db
+*.db-wal
+*.db-shm
+/fixtures/*.local.json

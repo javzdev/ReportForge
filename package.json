@@ -1,0 +1,75 @@
+{
+  "name": "reportforge-local",
+  "productName": "ReportForge Local",
+  "version": "0.1.0",
+  "description": "Aplicacion local y sin conexion para redactar reportes de evaluaciones de seguridad autorizadas.",
+  "private": true,
+  "main": "dist/main/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "dev": "node scripts/copy-static-assets.js && concurrently -k -n VITE,MAIN,ALIAS,PRELOAD,ELECTRON -c blue,yellow,magenta,cyan,green \"npm:dev:vite\" \"npm:dev:main\" \"npm:dev:alias\" \"npm:dev:preload\" \"npm:dev:electron\"",
+    "dev:vite": "vite",
+    "dev:main": "tsc -p tsconfig.main.json --watch --preserveWatchOutput",
+    "dev:alias": "tsc-alias -p tsconfig.main.json --watch",
+    "dev:preload": "node scripts/build-preload.js --watch",
+    "dev:electron": "wait-on tcp:5173 dist/main/index.js dist/preload/index.js && cross-env NODE_ENV=development electron .",
+    "build:renderer": "vite build",
+    "build:main": "tsc -p tsconfig.main.json && tsc-alias -p tsconfig.main.json && node scripts/copy-static-assets.js",
+    "build:preload": "node scripts/build-preload.js",
+    "build": "npm run build:renderer && npm run build:main && npm run build:preload",
+    "start": "npm run build && electron .",
+    "typecheck": "tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.preload.json --noEmit && tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext .ts,.tsx",
+    "package:win": "npm run build && electron-builder --win",
+    "rebuild:electron": "electron-rebuild -f -w better-sqlite3",
+    "rebuild:node": "npm rebuild better-sqlite3"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^22.7.5",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@types/uuid": "^9.0.8",
+    "@vitejs/plugin-react": "^4.3.2",
+    "concurrently": "^9.0.1",
+    "cross-env": "^7.0.3",
+    "electron": "^32.2.0",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.28.2",
+    "tsc-alias": "^1.9.7",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.2",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "local.reportforge.app",
+    "productName": "ReportForge Local",
+    "directories": {
+      "output": "dist-electron-builder"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "extraResources": [],
+    "win": {
+      "target": "nsis",
+      "artifactName": "${productName}-${version}-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "publish": null
+  }
+}
